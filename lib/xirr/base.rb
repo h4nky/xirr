@@ -1,3 +1,5 @@
+require_relative 'ffi_math_functions'
+
 module Xirr
 
   #  Base module for XIRR calculation Methods
@@ -23,7 +25,7 @@ module Xirr
     # @return [BigDecimal]
     def xnpv(rate)
       cf.inject(0) do |sum, t|
-        sum += t.amount / (( 1 + rate) ** periods_from_start(t.date))
+        sum + FfiMathFunctions.div_pow(amount, rate, periods_from_start(t.date))
       end
     end
 
